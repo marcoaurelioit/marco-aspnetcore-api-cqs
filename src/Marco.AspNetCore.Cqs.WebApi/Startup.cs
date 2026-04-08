@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace Marco.AspNetCore.Cqs.WebApi
 {
@@ -21,7 +22,14 @@ namespace Marco.AspNetCore.Cqs.WebApi
         {
             services.AddControllers();
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Marco AspNetCore CQS API",
+                    Version = "v1"
+                });
+            });
 
             services.AddAutoMapper(typeof(WebApiAutoMapperProfile));
             services.AddCustomApplicationServices();
@@ -38,7 +46,11 @@ namespace Marco.AspNetCore.Cqs.WebApi
             }
 
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Marco AspNetCore CQS API v1");
+                c.RoutePrefix = "swagger";
+            });
 
             app.UseRouting();
             app.UseAuthorization();
