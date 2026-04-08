@@ -1,9 +1,9 @@
 ﻿using Dapper;
 using Marco.Domain.Core.Models;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Threading.Tasks;
 
 namespace Marco.AspNetCore.Cqs.Infra.Data.Dapper
@@ -16,7 +16,7 @@ namespace Marco.AspNetCore.Cqs.Infra.Data.Dapper
         public ContextReadOnly(SqlServerReadOnlySettings sqlServerReadOnlySettings)
         {
             this.sqlServerReadOnlySettings = sqlServerReadOnlySettings ?? throw new ArgumentNullException(nameof(sqlServerReadOnlySettings));
-        }       
+        }
 
         #region [+] Query
         public virtual IEnumerable<T> Query<T>(string sql, object param = null) where T : Entity =>
