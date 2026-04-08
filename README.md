@@ -17,10 +17,10 @@ Este projeto demonstra como separar operações de leitura (queries) de operaç�
 
 A solution possui 4 projetos principais:
 
-- `Marco.AspNetCore.Cqs.WebApi` (`netcoreapp2.1`)
-- `Marco.AspNetCore.Cqs.Application` (`netstandard2.0`)
-- `Marco.AspNetCore.Cqs.Infra.Data.Dapper` (`netstandard2.0`)
-- `Marco.AspNetCore.Cqs.Domain` (`netstandard2.0`)
+- `Marco.AspNetCore.Cqs.WebApi` (`net10.0`)
+- `Marco.AspNetCore.Cqs.Application` (`net10.0`)
+- `Marco.AspNetCore.Cqs.Infra.Data.Dapper` (`net10.0`)
+- `Marco.AspNetCore.Cqs.Domain` (`net10.0`)
 
 Fluxo principal de consulta por CPF:
 
@@ -31,10 +31,10 @@ Fluxo principal de consulta por CPF:
 
 ## ✅ Pré-requisitos
 
-- **.NET SDK 2.1** (compatível com `netcoreapp2.1`) 
+- **.NET SDK 10** (compatível com `net10.0`) 
 - SQL Server (opcional no estado atual, obrigatório se você ativar a query real no handler)
 
-> Observação: como o projeto usa .NET Core 2.1 (EOL), em ambientes atuais pode ser necessário instalar SDK/runtime legado manualmente para build/execução.
+> Observação: o projeto foi migrado para .NET 10; use SDK/runtime 10.0 para build e execução.
 
 ## ⚙️ Configuração
 
@@ -118,7 +118,16 @@ Exemplo de payload de sucesso:
 
 ## 🧪 Testes e validação rápida
 
-A solution não possui projeto de testes automatizados atualmente. Para validação manual:
+A solution possui o projeto `Marco.AspNetCore.Cqs.UnitTests` para testes unitários com xUnit + FluentAssertions.
+
+Para executar:
+
+```bash
+cd src
+dotnet test MarcoAspNetCoreCqs.sln
+```
+
+Validação manual adicional:
 
 1. Suba a API.
 2. Acesse `http://localhost:5000/swagger`.
@@ -139,7 +148,7 @@ No arquivo `ConsultarPessoaFisicaPorCpfQueryHandler`, já existe trecho comentad
 - MediatR
 - Dapper
 - AutoMapper
-- Marco.AspNetCore.WebApi.BootStrapper
+- Swagger (Swashbuckle)
 
 ## 📝 Observações importantes
 
@@ -153,4 +162,4 @@ Se quiser, posso também montar uma seção adicional com:
 
 - docker-compose para API + SQL Server,
 - collection do Postman,
-- e roteiro de migração para .NET 8.
+- e roteiro de migração para versões futuras do .NET.
